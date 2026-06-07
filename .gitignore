@@ -1,0 +1,19 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Local dependency/cache directories
+.codex/
+.venv/
+node_modules/
+
+# Heavy or reproducible media work directories
+**/mp4-frames/
+**/narration-work/
+**/whisper-cache/
+**/bin/
+
+# Keep final sample outputs, but avoid accidental large scratch media.
+*.wav
+*.aiff
+*.mp3

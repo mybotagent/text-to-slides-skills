@@ -1,0 +1,4 @@
+interface:
+  display_name: "Text to PPT"
+  short_description: "Turn text into editable PowerPoint decks"
+  default_prompt: "Use $text-to-ppt to turn this text into an editable PowerPoint deck."

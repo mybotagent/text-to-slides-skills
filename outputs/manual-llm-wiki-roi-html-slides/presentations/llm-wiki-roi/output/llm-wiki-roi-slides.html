@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>LLM Wiki ROI Slides</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --ink: #111827;
+      --muted: #5f6673;
+      --line: #d9dde5;
+      --accent: #c0392b;
+      --accent-dark: #8e2118;
+      --panel: #ffffff;
+      --duration: 720ms;
+      --page-pad: clamp(10px, 2vw, 28px);
+      --slide-pad-x: clamp(22px, 5.8vw, 112px);
+      --slide-pad-top: clamp(30px, 4.5vw, 86px);
+      --slide-pad-bottom: clamp(34px, 3.8vw, 72px);
+      font-family: "Aptos", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #101216;
+      color: var(--ink);
+      padding: var(--page-pad);
+    }
+
+    .deck {
+      width: min(100%, 1920px);
+      margin: 0 auto;
+      background: transparent;
+    }
+
+    .slide {
+      position: relative;
+      width: 100%;
+      min-height: auto;
+      aspect-ratio: 16 / 9;
+      padding: var(--slide-pad-top) var(--slide-pad-x) var(--slide-pad-bottom);
+      overflow: hidden;
+      background: var(--bg);
+      border-bottom: 1px solid #cfd3dc;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+      margin-bottom: var(--page-pad);
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      left: var(--slide-pad-x);
+      top: clamp(24px, 3.75vw, 72px);
+      width: clamp(42px, 4.5vw, 86px);
+      height: clamp(4px, 0.32vw, 6px);
+      background: var(--accent);
+      transform-origin: left center;
+      animation: wipe var(--duration) ease both;
+    }
+
+    .eyebrow {
+      margin: 0 0 clamp(14px, 1.45vw, 28px);
+      color: var(--accent);
+      font-size: clamp(12px, 1.15vw, 22px);
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 1400px;
+      color: var(--ink);
+      font-size: clamp(26px, 3.75vw, 72px);
+      line-height: 1.12;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 1180px;
+      margin-top: clamp(16px, 1.78vw, 34px);
+      color: var(--muted);
+      font-size: clamp(15px, 1.78vw, 34px);
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(14px, 2.3vw, 44px);
+      margin-top: clamp(22px, 3.02vw, 58px);
+    }
+
+    .three {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .metric {
+      color: var(--accent);
+      font-size: clamp(54px, 9.16vw, 176px);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: 0;
+      transform-origin: left bottom;
+    }
+
+    .metric small {
+      color: var(--muted);
+      font-size: clamp(16px, 1.98vw, 38px);
+      font-weight: 700;
+    }
+
+    .metric.counter {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.02em;
+      animation: metricPop 780ms cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    .panel {
+      min-height: clamp(140px, 13.1vw, 252px);
+      padding: clamp(16px, 1.77vw, 34px) clamp(18px, 1.98vw, 38px);
+      background: var(--panel);
+      border-top: clamp(3px, 0.21vw, 4px) solid var(--ink);
+    }
+
+    .panel.accent { border-top-color: var(--accent); }
+
+    .panel h2 {
+      margin: 0 0 clamp(10px, 1.05vw, 20px);
+      color: var(--ink);
+      font-size: clamp(18px, 1.78vw, 34px);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .panel p, li {
+      color: #2f3643;
+      font-size: clamp(14px, 1.46vw, 28px);
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: clamp(18px, 1.56vw, 30px);
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: clamp(22px, 3.13vw, 60px);
+      background: var(--line);
+    }
+
+    .comparison .panel {
+      min-height: clamp(210px, 22.4vw, 430px);
+      border-top: 0;
+    }
+
+    .comparison .panel:first-child {
+      animation: slideCompareLeft 780ms cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    .comparison .panel:last-child {
+      animation: slideCompareRight 780ms cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    .bar-row {
+      margin-top: clamp(12px, 1.46vw, 28px);
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: clamp(6px, 0.63vw, 12px);
+      color: var(--ink);
+      font-size: clamp(13px, 1.25vw, 24px);
+      font-weight: 700;
+    }
+
+    .bar-track {
+      position: relative;
+      height: clamp(8px, 0.94vw, 18px);
+      background: #e5e8ee;
+      overflow: hidden;
+    }
+
+    .bar-track::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.72), transparent);
+      transform: translateX(-110%);
+      animation: barSweep 900ms ease both;
+      animation-delay: 940ms;
+    }
+
+    .bar {
+      height: 100%;
+      width: calc(var(--value) * 1%);
+      background: var(--accent);
+      transform-origin: left center;
+      animation: barFill 980ms cubic-bezier(.2,.9,.2,1) both;
+      animation-delay: var(--bar-delay, 360ms);
+    }
+
+    .summary-table {
+      width: 100%;
+      margin-top: clamp(20px, 3.02vw, 58px);
+      border-collapse: collapse;
+      background: #fff;
+      font-size: clamp(14px, 1.56vw, 30px);
+    }
+
+    .summary-table th,
+    .summary-table td {
+      padding: clamp(10px, 1.35vw, 26px) clamp(12px, 1.56vw, 30px);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .summary-table th {
+      color: var(--muted);
+      font-size: clamp(11px, 1.04vw, 20px);
+      text-transform: uppercase;
+    }
+
+    .summary-table strong {
+      color: var(--accent);
+      font-size: clamp(20px, 2.19vw, 42px);
+    }
+
+    .summary-table tbody tr {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: rowReveal 620ms ease both;
+    }
+
+    .summary-table tbody tr:nth-child(1) { animation-delay: 360ms; }
+    .summary-table tbody tr:nth-child(2) { animation-delay: 520ms; }
+    .summary-table tbody tr:nth-child(3) { animation-delay: 680ms; }
+
+    .footer {
+      position: absolute;
+      left: var(--slide-pad-x);
+      right: var(--slide-pad-x);
+      bottom: clamp(18px, 2.19vw, 42px);
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      color: #8b93a1;
+      font-size: clamp(10px, 0.94vw, 18px);
+      font-weight: 500;
+    }
+
+    .note {
+      display: none;
+    }
+
+    .reveal {
+      animation: fadeUp var(--duration) ease both;
+    }
+
+    .delay-1 { animation-delay: 120ms; }
+    .delay-2 { animation-delay: 240ms; }
+    .delay-3 { animation-delay: 360ms; }
+    .delay-4 { animation-delay: 480ms; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes wipe {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes barFill {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes barSweep {
+      from { transform: translateX(-110%); }
+      to { transform: translateX(110%); }
+    }
+
+    @keyframes metricPop {
+      0% { opacity: 0; transform: translateY(20px) scale(0.92); }
+      70% { opacity: 1; transform: translateY(0) scale(1.035); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes rowReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideCompareLeft {
+      from { opacity: 0; transform: translateX(-32px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideCompareRight {
+      from { opacity: 0; transform: translateX(32px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 1ms !important;
+      }
+    }
+
+    @media screen and (max-width: 760px) {
+      body {
+        padding: 0;
+      }
+
+      .slide {
+        aspect-ratio: auto;
+        min-height: 100svh;
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--line);
+        box-shadow: none;
+      }
+
+      .grid,
+      .grid.three,
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison .panel,
+      .panel {
+        min-height: auto;
+      }
+
+      .summary-table,
+      .summary-table thead,
+      .summary-table tbody,
+      .summary-table tr,
+      .summary-table th,
+      .summary-table td {
+        display: block;
+      }
+
+      .summary-table thead {
+        display: none;
+      }
+
+      .summary-table tr {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .summary-table td {
+        border-bottom: 0;
+      }
+
+      .footer {
+        position: static;
+        margin-top: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" data-format="slides" data-remotion-width="1920" data-remotion-height="1080" data-fps="30">
+    <section class="slide" data-duration="7" data-notes="95%라는 숫자로 시작해 LLM Wiki의 경제성을 제시한다.">
+      <p class="eyebrow reveal">Opening Metric</p>
+      <h1 class="reveal delay-1">LLM Wiki는 지식 관리 비용을 구조적으로 낮춘다</h1>
+      <div class="grid">
+        <div class="reveal delay-2">
+          <div class="metric counter" data-count-to="95" data-suffix="%"><span class="count-value">95</span><small>%</small></div>
+          <p class="subtitle">무분별한 문서 로딩 대비 절감 가능한 토큰 사용량</p>
+        </div>
+        <div class="panel accent reveal delay-3">
+          <h2>발표의 핵심 질문</h2>
+          <p>AI를 쓰는 것을 넘어, 어떻게 지식을 더 저렴하고 정확하게 자산화할 것인가?</p>
+        </div>
+      </div>
+      <div class="footer"><span>LLM Wiki ROI Analysis</span><span>01</span></div>
+    </section>
+
+    <section class="slide" data-duration="8" data-notes="RAG의 숨겨진 비용은 검색 실패율과 인프라 복잡도다.">
+      <p class="eyebrow reveal">Hidden Costs</p>
+      <h1 class="reveal delay-1">RAG는 검색을 자동화하지만 비용 구조를 없애지는 못한다</h1>
+      <div class="grid">
+        <div class="panel reveal delay-2">
+          <h2>컨텍스트 단절</h2>
+          <p>단순 벡터 검색은 관련 문서의 <strong>20~30%</strong>를 놓칠 수 있다.</p>
+          <div class="bar-row">
+            <div class="bar-label"><span>검색 누락 리스크</span><span>30%</span></div>
+            <div class="bar-track"><div class="bar" style="--value:30; --bar-delay: 520ms"></div></div>
+          </div>
+        </div>
+        <div class="panel accent reveal delay-3">
+          <h2>고정 인프라 비용</h2>
+          <p>벡터 DB, 임베딩 모델, 재정렬 파이프라인이 지속적인 운영 지출을 만든다.</p>
+        </div>
+      </div>
+      <div class="footer"><span>Source: user-provided script</span><span>02</span></div>
+    </section>
+
+    <section class="slide" data-duration="8" data-notes="6만 토큰 원문 호출과 3천 토큰 위키 호출의 차이를 설명한다.">
+      <p class="eyebrow reveal">Token Efficiency</p>
+      <h1 class="reveal delay-1">정제된 Wiki 호출은 원문 스태킹보다 20배 가볍다</h1>
+      <div class="comparison">
+        <div class="panel reveal delay-2">
+          <h2>기존 문서 로딩</h2>
+          <div class="metric counter" data-count-to="60" data-suffix="K"><span class="count-value">60</span><small>K</small></div>
+          <p>정책 문서 3개를 매번 컨텍스트에 호출</p>
+          <div class="bar-row">
+            <div class="bar-label"><span>토큰 사용량</span><span>100%</span></div>
+            <div class="bar-track"><div class="bar" style="--value:100; --bar-delay: 520ms"></div></div>
+          </div>
+        </div>
+        <div class="panel accent reveal delay-3">
+          <h2>LLM Wiki 호출</h2>
+          <div class="metric counter" data-count-to="3" data-suffix="K"><span class="count-value">3</span><small>K</small></div>
+          <p>LLM이 핵심만 정제한 Wiki 페이지 호출</p>
+          <div class="bar-row">
+            <div class="bar-label"><span>토큰 사용량</span><span>5%</span></div>
+            <div class="bar-track"><div class="bar" style="--value:5; --bar-delay: 720ms"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>20x token difference / 1.5s latency reduction potential</span><span>03</span></div>
+    </section>
+
+    <section class="slide" data-duration="8" data-notes="다중 추론에서는 관계를 미리 구조화한 방식이 유리하다.">
+      <p class="eyebrow reveal">Multi-hop Reasoning</p>
+      <h1 class="reveal delay-1">정확도 개선의 핵심은 검색이 아니라 관계 구조화다</h1>
+      <div class="grid">
+        <div class="reveal delay-2">
+          <div class="metric counter" data-count-to="88" data-suffix="%"><span class="count-value">88</span><small>%</small></div>
+          <p class="subtitle">여러 문서에 흩어진 정보를 연결하는 다중 추론 영역의 최대 정확도 개선</p>
+        </div>
+        <div class="panel accent reveal delay-3">
+          <h2>왜 개선되는가</h2>
+          <ul>
+            <li>RAG는 정보를 찾는 데 집중한다.</li>
+            <li>LLM Wiki는 정보 간 관계를 미리 남긴다.</li>
+            <li>질문 시점에는 구조화된 맥락을 재사용한다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer"><span>Reference cue: GraphRAG-style relationship reasoning</span><span>04</span></div>
+    </section>
+
+    <section class="slide" data-duration="8" data-notes="운영 시간 ROI를 주당 유지보수 시간과 자동화율로 설명한다.">
+      <p class="eyebrow reveal">Human-in-the-loop ROI</p>
+      <h1 class="reveal delay-1">Auto-Ingest와 Lint는 지식 관리자의 반복 업무를 줄인다</h1>
+      <div class="grid three">
+        <div class="panel reveal delay-1">
+          <h2>기존 위키</h2>
+          <div class="metric counter" data-count-to="8" data-prefix="5~" data-suffix="h"><span class="count-prefix">5~</span><span class="count-value">8</span><small>h</small></div>
+          <p>주당 수동 업데이트 시간</p>
+        </div>
+        <div class="panel accent reveal delay-2">
+          <h2>자동화 효과</h2>
+          <div class="metric counter" data-count-to="80" data-suffix="%+"><span class="count-value">80</span><small>%+</small></div>
+          <p>유지보수 자동화 가능성</p>
+        </div>
+        <div class="panel reveal delay-3">
+          <h2>사람의 역할</h2>
+          <p>AI가 만든 모순 리포트와 변경 제안만 검토</p>
+        </div>
+      </div>
+      <div class="footer"><span>Operational ROI through Auto-Ingest + Lint</span><span>05</span></div>
+    </section>
+
+    <section class="slide" data-duration="8" data-notes="비용, 성능, 속도 세 지표로 정량 요약한다.">
+      <p class="eyebrow reveal">Quantified Summary</p>
+      <h1 class="reveal delay-1">LLM Wiki의 ROI는 비용, 성능, 속도에서 동시에 발생한다</h1>
+      <table class="summary-table reveal delay-2">
+        <thead>
+          <tr><th>Metric</th><th>Impact</th><th>Mechanism</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>비용</td><td><strong class="counter-inline" data-count-to="95" data-suffix="%">95%</strong> 토큰 효율 향상</td><td>원문 대신 정제된 Wiki 페이지 호출</td></tr>
+          <tr><td>성능</td><td><strong class="counter-inline" data-count-to="80" data-suffix="%+">80%+</strong> 복합 질문 개선</td><td>관계 기반 지식 구조 재사용</td></tr>
+          <tr><td>속도</td><td><strong class="counter-inline" data-count-to="1.5" data-suffix="s+">1.5s+</strong> 지연 단축</td><td>검색 레이어 일부 생략</td></tr>
+        </tbody>
+      </table>
+      <div class="footer"><span>Data should be compiled for AI-readable retrieval</span><span>06</span></div>
+    </section>
+
+    <section class="slide" data-duration="7" data-notes="성공적인 AI 도입은 데이터 투입량이 아니라 인출 경제성으로 평가해야 한다.">
+      <p class="eyebrow reveal">Closing</p>
+      <h1 class="reveal delay-1">AI 도입의 성과는 데이터를 얼마나 넣었는가가 아니라 얼마나 잘 인출하는가에 달려 있다</h1>
+      <div class="grid">
+        <div class="panel accent reveal delay-2">
+          <h2>핵심 결론</h2>
+          <p>LLM Wiki는 저렴하고 정확한 지식 인출을 위한 경제적 해답이다.</p>
+        </div>
+        <div class="panel reveal delay-3">
+          <h2>전략적 의미</h2>
+          <p>데이터는 보관되는 것이 아니라 AI가 읽기 좋은 위키 형태로 컴파일되어야 한다.</p>
+        </div>
+      </div>
+      <div class="footer"><span>LLM Wiki: Knowledge Management Paradigm Shift</span><span>07</span></div>
+    </section>
+  </main>
+  <script>
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function formatNumber(value, decimals) {
+      return Number(value).toLocaleString("ko-KR", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function animateCounter(element) {
+      const target = Number(element.dataset.countTo || 0);
+      const suffix = element.dataset.suffix || "";
+      const duration = prefersReducedMotion ? 1 : 980;
+      const decimals = String(element.dataset.countTo || "").includes(".") ? 1 : 0;
+      const valueNode = element.querySelector(".count-value");
+      const inline = element.classList.contains("counter-inline");
+      const start = performance.now();
+
+      function write(value) {
+        const text = formatNumber(value, decimals);
+        if (valueNode) {
+          valueNode.textContent = text;
+        } else if (inline) {
+          element.textContent = `${text}${suffix}`;
+        }
+      }
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        write(target * eased);
+        if (progress < 1) requestAnimationFrame(tick);
+        else write(target);
+      }
+
+      write(0);
+      requestAnimationFrame(tick);
+    }
+
+    const observedCounters = new WeakSet();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll(".counter, .counter-inline").forEach((counter) => {
+          if (observedCounters.has(counter)) return;
+          observedCounters.add(counter);
+          animateCounter(counter);
+        });
+      });
+    }, { threshold: 0.38 });
+
+    document.querySelectorAll(".slide").forEach((slide) => observer.observe(slide));
+  </script>
+</body>
+</html>

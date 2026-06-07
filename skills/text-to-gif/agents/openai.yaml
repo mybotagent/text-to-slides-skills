@@ -1,0 +1,4 @@
+interface:
+  display_name: "Text to GIF"
+  short_description: "Create animated GIFs from text scripts"
+  default_prompt: "Use $text-to-gif to turn this script into an animated metric GIF."

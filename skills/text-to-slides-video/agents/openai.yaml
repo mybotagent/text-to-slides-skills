@@ -1,0 +1,4 @@
+interface:
+  display_name: "Text to Slides Video"
+  short_description: "Create motion slide videos from text"
+  default_prompt: "Use $text-to-slides-video to turn this script into a motion slide video preview."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Text to Slides"
+  short_description: "Create HTML slides for Remotion"
+  default_prompt: "Use $text-to-slides to turn this script into animated HTML slides."

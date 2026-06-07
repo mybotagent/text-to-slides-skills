@@ -1,0 +1,75 @@
+{
+  "title": "LLM Wiki ROI",
+  "timing": [
+    {
+      "page": 1,
+      "startMs": 0,
+      "endMs": 4950,
+      "durationMs": 4950,
+      "title": "LLM Wiki는 지식 관리 비용을 구조적으로 낮춘다",
+      "script": "안녕하십니까. 오늘 저는 여러분께 단 한 줄의 숫자로 발표를 시작하려 합니다. 95%. 이것은 LLM Wiki 방식을 도입했을 때 절감할 수 있는 토큰 사용량입니다.",
+      "segmentStart": 0,
+      "segmentEnd": 0
+    },
+    {
+      "page": 2,
+      "startMs": 4950,
+      "endMs": 10150,
+      "durationMs": 5200,
+      "title": "RAG는 검색을 자동화하지만 비용 구조를 없애지는 못한다",
+      "script": "많은 기업이 RAG를 도입하지만 컨텍스트 단절과 인프라 복잡도라는 두 가지 한계에 부딪힙니다. 단순 벡터 검색은 관련 문서의 20~30%를 놓칠 수 있습니다.",
+      "segmentStart": 1,
+      "segmentEnd": 1
+    },
+    {
+      "page": 3,
+      "startMs": 10150,
+      "endMs": 15750,
+      "durationMs": 5600,
+      "title": "정제된 Wiki 호출은 원문 스태킹보다 20배 가볍다",
+      "script": "6만 토큰 분량의 정책 문서 3개를 매번 호출하는 경우와 3천 토큰의 Wiki 페이지를 호출하는 경우를 비교하면 토큰 소모량은 20배 차이가 납니다.",
+      "segmentStart": 2,
+      "segmentEnd": 2
+    },
+    {
+      "page": 4,
+      "startMs": 15750,
+      "endMs": 20450,
+      "durationMs": 4700,
+      "title": "정확도 개선의 핵심은 검색이 아니라 관계 구조화다",
+      "script": "다중 추론 영역에서 LLM Wiki와 같은 구조화 방식은 일반 RAG 대비 정확도가 최대 88%까지 향상될 수 있습니다.",
+      "segmentStart": 3,
+      "segmentEnd": 3
+    },
+    {
+      "page": 5,
+      "startMs": 20450,
+      "endMs": 25950,
+      "durationMs": 5500,
+      "title": "Auto-Ingest와 Lint는 지식 관리자의 반복 업무를 줄인다",
+      "script": "기존 위키는 수동 업데이트에 주당 평균 5~8시간이 소요됩니다. Auto-Ingest와 Lint 기능을 활용하면 이 유지보수 시간을 80% 이상 자동화할 수 있습니다.",
+      "segmentStart": 4,
+      "segmentEnd": 4
+    },
+    {
+      "page": 6,
+      "startMs": 25950,
+      "endMs": 30550,
+      "durationMs": 4600,
+      "title": "ROI는 비용, 성능, 속도에서 동시에 발생한다",
+      "script": "정리하자면 LLM Wiki는 비용, 성능, 속도 세 가지 지표에서 혁신을 가져옵니다.",
+      "segmentStart": 5,
+      "segmentEnd": 5
+    },
+    {
+      "page": 7,
+      "startMs": 30550,
+      "endMs": 35350,
+      "durationMs": 4800,
+      "title": "AI 도입의 성과는 얼마나 잘 인출하는가에 달려 있다",
+      "script": "성공적인 AI 도입의 척도는 얼마나 많은 데이터를 넣었는가가 아니라 얼마나 저렴하고 정확하게 인출하는가에 달려 있습니다.",
+      "segmentStart": 6,
+      "segmentEnd": 6
+    }
+  ]
+}

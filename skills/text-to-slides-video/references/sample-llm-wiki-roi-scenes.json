@@ -1,0 +1,46 @@
+{
+  "title": "LLM Wiki ROI",
+  "source": "user-provided script",
+  "scenes": [
+    {
+      "eyebrow": "Opening Metric",
+      "title": "LLM Wiki는 지식 관리 비용을 구조적으로 낮춘다",
+      "metric": "95%",
+      "body": "무분별한 문서 로딩 대비 절감 가능한 토큰 사용량",
+      "bar": 95,
+      "duration": 2400
+    },
+    {
+      "eyebrow": "Hidden Costs",
+      "title": "RAG는 검색을 자동화하지만 비용 구조를 없애지는 못한다",
+      "metric": "30%",
+      "body": "단순 벡터 검색은 관련 문서의 20~30%를 놓칠 수 있다",
+      "bar": 30,
+      "duration": 2400
+    },
+    {
+      "eyebrow": "Token Efficiency",
+      "title": "정제된 Wiki 호출은 원문 스태킹보다 20배 가볍다",
+      "metric": "20x",
+      "body": "60K 원문 호출 대신 3K Wiki 페이지를 호출",
+      "bar": 95,
+      "duration": 2400
+    },
+    {
+      "eyebrow": "Multi-hop Reasoning",
+      "title": "정확도 개선의 핵심은 검색이 아니라 관계 구조화다",
+      "metric": "88%",
+      "body": "흩어진 정보를 연결하는 복합 질문에서 정확도 개선",
+      "bar": 88,
+      "duration": 2400
+    },
+    {
+      "eyebrow": "Operating ROI",
+      "title": "Auto-Ingest와 Lint는 반복 유지보수를 줄인다",
+      "metric": "80%+",
+      "body": "수동 위키 관리 시간의 대부분을 자동화",
+      "bar": 80,
+      "duration": 2600
+    }
+  ]
+}

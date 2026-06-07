@@ -1,0 +1,69 @@
+{
+  "title": "LLM Wiki ROI",
+  "source": "user-provided script",
+  "scenes": [
+    {
+      "page": 1,
+      "eyebrow": "Opening Metric",
+      "title": "LLM Wiki는 지식 관리 비용을 구조적으로 낮춘다",
+      "metric": "95%",
+      "body": "무분별한 문서 로딩 대비 절감 가능한 토큰 사용량",
+      "bar": 95,
+      "script": "안녕하십니까. 오늘 저는 여러분께 단 한 줄의 숫자로 발표를 시작하려 합니다. 95%. 이것은 LLM Wiki 방식을 도입했을 때 절감할 수 있는 토큰 사용량입니다."
+    },
+    {
+      "page": 2,
+      "eyebrow": "Hidden Costs",
+      "title": "RAG는 검색을 자동화하지만 비용 구조를 없애지는 못한다",
+      "metric": "30%",
+      "body": "단순 벡터 검색은 관련 문서의 20~30%를 놓칠 수 있다",
+      "bar": 30,
+      "script": "많은 기업이 RAG를 도입하지만 컨텍스트 단절과 인프라 복잡도라는 두 가지 한계에 부딪힙니다. 단순 벡터 검색은 관련 문서의 20~30%를 놓칠 수 있습니다."
+    },
+    {
+      "page": 3,
+      "eyebrow": "Token Efficiency",
+      "title": "정제된 Wiki 호출은 원문 스태킹보다 20배 가볍다",
+      "metric": "20x",
+      "body": "60K 원문 호출 대신 3K Wiki 페이지를 호출",
+      "bar": 95,
+      "script": "6만 토큰 분량의 정책 문서 3개를 매번 호출하는 경우와 3천 토큰의 Wiki 페이지를 호출하는 경우를 비교하면 토큰 소모량은 20배 차이가 납니다."
+    },
+    {
+      "page": 4,
+      "eyebrow": "Multi-hop Reasoning",
+      "title": "정확도 개선의 핵심은 검색이 아니라 관계 구조화다",
+      "metric": "88%",
+      "body": "흩어진 정보를 연결하는 복합 질문에서 정확도 개선",
+      "bar": 88,
+      "script": "다중 추론 영역에서 LLM Wiki와 같은 구조화 방식은 일반 RAG 대비 정확도가 최대 88%까지 향상될 수 있습니다."
+    },
+    {
+      "page": 5,
+      "eyebrow": "Human-in-the-loop ROI",
+      "title": "Auto-Ingest와 Lint는 지식 관리자의 반복 업무를 줄인다",
+      "metric": "80%+",
+      "body": "수동 위키 관리 시간의 대부분을 자동화",
+      "bar": 80,
+      "script": "기존 위키는 수동 업데이트에 주당 평균 5~8시간이 소요됩니다. Auto-Ingest와 Lint 기능을 활용하면 이 유지보수 시간을 80% 이상 자동화할 수 있습니다."
+    },
+    {
+      "page": 6,
+      "eyebrow": "Summary",
+      "title": "ROI는 비용, 성능, 속도에서 동시에 발생한다",
+      "metric": "3",
+      "body": "비용 95%, 성능 80%+, 속도 1.5초+를 하나의 경제성으로 묶는다",
+      "bar": 90,
+      "script": "정리하자면 LLM Wiki는 비용, 성능, 속도 세 가지 지표에서 혁신을 가져옵니다."
+    },
+    {
+      "page": 7,
+      "eyebrow": "Closing",
+      "title": "AI 도입의 성과는 얼마나 잘 인출하는가에 달려 있다",
+      "metric": "1",
+      "body": "LLM Wiki는 저렴하고 정확한 지식 인출을 위한 경제적 해답이다",
+      "bar": 100,
+      "script": "성공적인 AI 도입의 척도는 얼마나 많은 데이터를 넣었는가가 아니라 얼마나 저렴하고 정확하게 인출하는가에 달려 있습니다."
+    }
+  ]
+}
