@@ -61,6 +61,11 @@ def draw_lines(draw: ImageDraw.ImageDraw, x: int, y: int, lines: list[str], face
     return y
 
 
+def line_height(draw: ImageDraw.ImageDraw, face: ImageFont.ImageFont) -> int:
+    box = draw.textbbox((0, 0), "Ag가", font=face)
+    return box[3] - box[1]
+
+
 def render(slide: dict[str, Any], size: tuple[int, int]) -> Image.Image:
     w, h = size
     image = Image.new("RGB", size, "#F7F8FA")
@@ -72,7 +77,8 @@ def render(slide: dict[str, Any], size: tuple[int, int]) -> Image.Image:
     track = "#E4E7EC"
 
     px = int(w * 0.075)
-    py = int(h * 0.105)
+    top_margin = int(h * 0.105)
+    footer_y = h - int(h * 0.07)
     content_w = int(w * 0.72)
 
     eyebrow_font = font(max(15, int(w * 0.016)))
@@ -82,38 +88,51 @@ def render(slide: dict[str, Any], size: tuple[int, int]) -> Image.Image:
     point_font = font(max(18, int(w * 0.023)))
     footer_font = font(max(12, int(w * 0.014)))
 
-    draw.rectangle((px, int(py * 0.7), px + int(w * 0.075), int(py * 0.7) + max(5, int(h * 0.008))), fill=accent)
+    title_lines = wrap(draw, str(slide.get("title") or "Untitled slide"), title_font, content_w, 2)
+    body_lines = wrap(draw, str(slide.get("body") or ""), body_font, content_w, 2) if slide.get("body") else []
+    points = [str(point) for point in slide.get("points", [])][:4]
+    metric = str(slide.get("metric") or "").strip()
+    render_metric = bool(metric and not re.fullmatch(r"\d{1,2}", metric))
+
+    title_block = len(title_lines) * line_height(draw, title_font) + max(0, len(title_lines) - 1) * int(h * 0.018)
+    metric_block = int(h * 0.16) if render_metric else 0
+    body_block = len(body_lines) * line_height(draw, body_font) + max(0, len(body_lines) - 1) * int(h * 0.014)
+    chip_h = max(34, int(h * 0.056))
+    point_gap = int(h * 0.012)
+    points_block = len(points) * chip_h + max(0, len(points) - 1) * point_gap
+    total_content = title_block + metric_block + body_block + points_block + int(h * 0.13)
+    py = max(top_margin, int((footer_y - total_content) / 2))
+
+    draw.rectangle((px, int(top_margin * 0.7), px + int(w * 0.075), int(top_margin * 0.7) + max(5, int(h * 0.008))), fill=accent)
 
     eyebrow = str(slide.get("eyebrow") or "One-slide brief").upper()
     draw.text((px, py), eyebrow, font=eyebrow_font, fill=accent)
 
-    title_lines = wrap(draw, str(slide.get("title") or "Untitled slide"), title_font, content_w, 2)
     y = draw_lines(draw, px, int(py * 1.45), title_lines, title_font, ink, int(h * 0.018))
 
-    metric = str(slide.get("metric") or "").strip()
-    if metric:
+    if render_metric:
         y += int(h * 0.035)
         draw.text((px, y), metric, font=metric_font, fill=accent)
         y += int(h * 0.15)
 
-    body = str(slide.get("body") or "")
-    if body:
+    if body_lines:
         y += int(h * 0.02)
-        y = draw_lines(draw, px, y, wrap(draw, body, body_font, content_w, 2), body_font, muted, int(h * 0.014))
+        y = draw_lines(draw, px, y, body_lines, body_font, muted, int(h * 0.014))
 
-    points = [str(point) for point in slide.get("points", [])][:4]
     if points:
         y += int(h * 0.045)
-        chip_h = max(32, int(h * 0.06))
         for point in points:
-            draw.rounded_rectangle((px, y, px + int(w * 0.58), y + chip_h), radius=6, fill="#FFFFFF", outline=track, width=1)
-            draw.ellipse((px + 16, y + chip_h // 2 - 4, px + 24, y + chip_h // 2 + 4), fill=accent)
+            if y + chip_h > footer_y - int(h * 0.025):
+                break
+            draw.rounded_rectangle((px, y, px + int(w * 0.68), y + chip_h), radius=6, fill="#FFFFFF", outline=track, width=1)
+            marker_y = y + chip_h // 2 - 4
+            draw.rounded_rectangle((px + 16, marker_y, px + 26, marker_y + 8), radius=3, fill=accent)
             draw.text((px + 40, y + int(chip_h * 0.24)), point, font=point_font, fill=ink)
-            y += chip_h + int(h * 0.014)
+            y += chip_h + point_gap
 
     footer = str(slide.get("footer") or "text-to-one-slide")
-    draw.text((px, h - int(h * 0.07)), footer, font=footer_font, fill=muted)
-    draw.text((w - int(w * 0.18), h - int(h * 0.07)), "1 / 1", font=footer_font, fill=muted)
+    draw.text((px, footer_y), footer, font=footer_font, fill=muted)
+    draw.text((w - int(w * 0.18), footer_y), "1 / 1", font=footer_font, fill=muted)
     return image
 
 
