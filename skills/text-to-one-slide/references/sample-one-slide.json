@@ -1,0 +1,13 @@
+{
+  "title": "LLM Wiki turns scattered documents into reusable AI knowledge",
+  "eyebrow": "One-slide brief",
+  "metric": "95%",
+  "body": "A managed wiki layer can reduce token waste while improving retrieval quality.",
+  "points": [
+    "Compiles raw sources into structured pages",
+    "Keeps page-to-source traceability",
+    "Supports faster answers and onboarding"
+  ],
+  "footer": "Source: user-provided LLM Wiki script",
+  "notes": "Use this as a single executive summary slide."
+}

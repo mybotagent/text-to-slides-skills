@@ -1,0 +1,4 @@
+interface:
+  display_name: "Text to One Slide"
+  short_description: "Create exactly one slide from text"
+  default_prompt: "Use $text-to-one-slide to turn this text into one polished 16:9 slide."

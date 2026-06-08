@@ -5,6 +5,7 @@ Local Codex skills for turning Korean or English presentation text into slide de
 ## Skills
 
 - `skills/text-to-ppt`: create editable PowerPoint decks from text.
+- `skills/text-to-one-slide`: create exactly one 16:9 summary slide from text.
 - `skills/text-to-slides`: create responsive HTML slide or card-news output.
 - `skills/text-to-gif`: create compact animated GIFs from metric-focused text.
 - `skills/text-to-slides-video`: create motion-slide preview videos from slide scripts.
